@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import context from './swContext';
 
@@ -6,6 +6,7 @@ function Provider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [planets, setPlanets] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState(planets);
 
   async function fetchData(url) {
     try {
@@ -17,7 +18,6 @@ function Provider({ children }) {
       }
       const data = await response.json();
       setPlanets(data.results);
-      console.log(data);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -25,12 +25,20 @@ function Provider({ children }) {
     }
   }
 
-  const values = useMemo(() => ({
+  function textSearch(text) {
+    const textFilter = planets
+      .filter((planet) => planet.name.toLowerCase().includes(text));
+    setFilteredPlanets(textFilter);
+  }
+
+  const values = {
     error,
     fetchData,
+    filteredPlanets,
     loading,
     planets,
-  }), [error, loading, planets]);
+    textSearch,
+  };
   return (
     <context.Provider value={ values }>
       {children}

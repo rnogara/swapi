@@ -1,0 +1,120 @@
+@font-face {
+    font-family: 'SF Distant Galaxy Outline';
+    src: url('SFDistantGalaxyOutline.eot');
+    src: url('SFDistantGalaxyOutline.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxyOutline.woff2') format('woff2'),
+        url('SFDistantGalaxyOutline.woff') format('woff'),
+        url('SFDistantGalaxyOutline.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy Outline';
+    src: url('SFDistantGalaxyOutlineItalic.eot');
+    src: url('SFDistantGalaxyOutlineItalic.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxyOutlineItalic.woff2') format('woff2'),
+        url('SFDistantGalaxyOutlineItalic.woff') format('woff'),
+        url('SFDistantGalaxyOutlineItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy Symbols';
+    src: url('SFDistantGalaxySymbols.eot');
+    src: url('SFDistantGalaxySymbols.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxySymbols.woff2') format('woff2'),
+        url('SFDistantGalaxySymbols.woff') format('woff'),
+        url('SFDistantGalaxySymbols.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy Symbols';
+    src: url('SFDistantGalaxySymbolsItalic.eot');
+    src: url('SFDistantGalaxySymbolsItalic.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxySymbolsItalic.woff2') format('woff2'),
+        url('SFDistantGalaxySymbolsItalic.woff') format('woff'),
+        url('SFDistantGalaxySymbolsItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy';
+    src: url('SFDistantGalaxy.eot');
+    src: url('SFDistantGalaxy.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxy.woff2') format('woff2'),
+        url('SFDistantGalaxy.woff') format('woff'),
+        url('SFDistantGalaxy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy AltOutline';
+    src: url('SFDistantGalaxyAltOutline.eot');
+    src: url('SFDistantGalaxyAltOutline.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxyAltOutline.woff2') format('woff2'),
+        url('SFDistantGalaxyAltOutline.woff') format('woff'),
+        url('SFDistantGalaxyAltOutline.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy Alternate';
+    src: url('SFDistantGalaxyAlternate.eot');
+    src: url('SFDistantGalaxyAlternate.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxyAlternate.woff2') format('woff2'),
+        url('SFDistantGalaxyAlternate.woff') format('woff'),
+        url('SFDistantGalaxyAlternate.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy Alternate';
+    src: url('SFDistantGalaxyAlternateItalic.eot');
+    src: url('SFDistantGalaxyAlternateItalic.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxyAlternateItalic.woff2') format('woff2'),
+        url('SFDistantGalaxyAlternateItalic.woff') format('woff'),
+        url('SFDistantGalaxyAlternateItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy';
+    src: url('SFDistantGalaxyItalic.eot');
+    src: url('SFDistantGalaxyItalic.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxyItalic.woff2') format('woff2'),
+        url('SFDistantGalaxyItalic.woff') format('woff'),
+        url('SFDistantGalaxyItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Distant Galaxy AltOutline';
+    src: url('SFDistantGalaxyAltOutlineItalic.eot');
+    src: url('SFDistantGalaxyAltOutlineItalic.eot?#iefix') format('embedded-opentype'),
+        url('SFDistantGalaxyAltOutlineItalic.woff2') format('woff2'),
+        url('SFDistantGalaxyAltOutlineItalic.woff') format('woff'),
+        url('SFDistantGalaxyAltOutlineItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+

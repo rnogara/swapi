@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import context from './swContext';
+import handleFilters from '../handlers/handleFilters';
 
 function Provider({ children }) {
   const [loading, setLoading] = useState(false);
@@ -32,22 +33,10 @@ function Provider({ children }) {
   }
 
   function filterPlanets(option, comparison, number) {
-    let filtered = [];
-    console.log(option, comparison, number);
-    if (comparison === 'maior que') {
-      filtered = planets.filter((planet) => planet[option].value > `${number}`);
-    }
-    if (comparison === 'menor que') {
-      filtered = planets.filter((planet) => planet[option].value < `${number}`);
-    }
-    if (comparison === 'igual a') {
-      filtered = planets.filter((planet) => planet[option].value === `${number}`);
-    }
-    if (filtered.length === 0) {
-      setFilteredPlanets(planets);
-    } else {
-      setFilteredPlanets(filtered);
-    }
+    const filtered = handleFilters(option, comparison, number, planets);
+    const firstPlanet = planets[0];
+    console.log(option, comparison, number, parseFloat(firstPlanet[option]));
+    setFilteredPlanets(filtered);
   }
 
   const values = {

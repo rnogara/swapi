@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import context from '../context/swContext';
 
 function Table() {
-  const { loading, filteredPlanets } = useContext(context);
+  const { loading, filteredPlanets, planets } = useContext(context);
+  const data = filteredPlanets.length === 0 ? planets : filteredPlanets;
   return (
     <section>
       { loading && <p>Carregando...</p>}
@@ -25,7 +26,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { filteredPlanets && filteredPlanets.map((planet, index) => (
+          { data && data.map((planet, index) => (
             <tr key={ index }>
               <td>{planet.name}</td>
               <td>{planet.rotation_period}</td>
@@ -36,7 +37,9 @@ function Table() {
               <td>{planet.terrain}</td>
               <td>{planet.surface_water}</td>
               <td>{planet.population}</td>
-              <td>{planet.films}</td>
+              <td>
+                {planet.films.map((film, i) => (<span key={ `F${i}` }>{film}</span>))}
+              </td>
               <td>{planet.created}</td>
               <td>{planet.edited}</td>
               <td>{planet.url}</td>

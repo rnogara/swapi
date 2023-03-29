@@ -31,10 +31,30 @@ function Provider({ children }) {
     setFilteredPlanets(textFilter);
   }
 
+  function filterPlanets(option, comparison, number) {
+    let filtered = [];
+    console.log(option, comparison, number);
+    if (comparison === 'maior que') {
+      filtered = planets.filter((planet) => planet[option].value > `${number}`);
+    }
+    if (comparison === 'menor que') {
+      filtered = planets.filter((planet) => planet[option].value < `${number}`);
+    }
+    if (comparison === 'igual a') {
+      filtered = planets.filter((planet) => planet[option].value === `${number}`);
+    }
+    if (filtered.length === 0) {
+      setFilteredPlanets(planets);
+    } else {
+      setFilteredPlanets(filtered);
+    }
+  }
+
   const values = {
     error,
     fetchData,
     filteredPlanets,
+    filterPlanets,
     loading,
     planets,
     textSearch,

@@ -7,7 +7,7 @@ function Provider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [planets, setPlanets] = useState([]);
-  const [filteredPlanets, setFilteredPlanets] = useState(planets);
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   async function fetchData(url) {
     try {
@@ -32,10 +32,18 @@ function Provider({ children }) {
     setFilteredPlanets(textFilter);
   }
 
-  function filterPlanets(option, comparison, number) {
-    const filtered = handleFilters(option, comparison, number, planets);
-    const firstPlanet = planets[0];
-    console.log(option, comparison, number, parseFloat(firstPlanet[option]));
+  function filterPlanets(arrayFilters) {
+    let filtered = [];
+    arrayFilters.forEach((filter) => {
+      const filterInfo = [
+        filter.option,
+        filter.comparison,
+        filter.number,
+      ];
+      const arrayPlanets = filteredPlanets.length === 0 ? planets : filteredPlanets;
+      const eachFilter = handleFilters(...filterInfo, arrayPlanets);
+      filtered = eachFilter;
+    });
     setFilteredPlanets(filtered);
   }
 

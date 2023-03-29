@@ -9,7 +9,7 @@ function Header() {
         Wars
       </h1>
       <br />
-      <p>Planets Search</p>
+      <p className="project-name">Planets Search</p>
     </header>
   );
 }

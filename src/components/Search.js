@@ -6,6 +6,31 @@ function Search() {
   const [searchNumber, setSearchNumber] = useState(0);
   const [searchOption, setSearchOption] = useState('population');
   const [searchComparison, setSearchComparison] = useState('maior que');
+  const [filtersApplied, setFiltersApplied] = useState([]);
+
+  function handleFilterBtn() {
+    const newFilter = {
+      option: searchOption,
+      comparison: searchComparison,
+      number: searchNumber,
+    };
+    if (filtersApplied.includes(newFilter)) {
+      return;
+    }
+    // const maxFilter = 5;
+    // if (filtersApplied.length === maxFilter) {
+    //   return console.log('você só pode ter 5 filtros');
+    // }
+    const arrayFilters = [...filtersApplied, newFilter];
+    setFiltersApplied(arrayFilters);
+    filterPlanets(arrayFilters);
+  }
+
+  function handleDeleteFilterBtn(target) {
+    const index = parseFloat(target.id);
+    const newArray = filtersApplied.filter((filter, i) => i !== index);
+    setFiltersApplied(newArray);
+  }
 
   return (
     <section>
@@ -41,10 +66,26 @@ function Search() {
         />
         <button
           data-testid="button-filter"
-          onClick={ () => filterPlanets(searchOption, searchComparison, searchNumber) }
+          onClick={ handleFilterBtn }
         >
           Filtrar
         </button>
+      </div>
+      <div className="applied-filters-wrapper">
+        {filtersApplied.length > 0 && filtersApplied.map((filter, index) => (
+          <div className="applied-filters-box" key={ index }>
+            <p className="applied-filter-text">{filter.option}</p>
+            <p className="applied-filter-text">{filter.comparison}</p>
+            <p className="applied-filter-text">{filter.number}</p>
+            <button
+              id={ index }
+              onClick={ ({ target }) => handleDeleteFilterBtn(target) }
+              className="delete-filter-btn"
+            >
+              ❌
+            </button>
+          </div>
+        ))}
       </div>
     </section>
   );

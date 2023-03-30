@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import context from './swContext';
-import handleFilters from '../handlers/handleFilters';
+import Context from './swContext';
+import useFilterCase from '../hooks/useFilterCase';
 
 function Provider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [planets, setPlanets] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
+  const [filtersApplied, setFiltersApplied] = useState([]);
+  const applyFilter = useFilterCase([]);
 
   async function fetchData(url) {
     try {
@@ -27,7 +29,8 @@ function Provider({ children }) {
   }
 
   function textSearch(text) {
-    const textFilter = planets
+    const data = filteredPlanets || planets;
+    const textFilter = data
       .filter((planet) => planet.name.toLowerCase().includes(text));
     setFilteredPlanets(textFilter);
   }
@@ -41,25 +44,31 @@ function Provider({ children }) {
         filter.number,
       ];
       const arrayPlanets = filteredPlanets.length === 0 ? planets : filteredPlanets;
-      const eachFilter = handleFilters(...filterInfo, arrayPlanets);
+      const eachFilter = applyFilter.filterCase(...filterInfo, arrayPlanets);
       filtered = eachFilter;
     });
     setFilteredPlanets(filtered);
   }
 
+  function applyFilters(arrayFilters) {
+    setFiltersApplied(arrayFilters);
+  }
+
   const values = {
+    applyFilters,
     error,
     fetchData,
     filteredPlanets,
     filterPlanets,
+    filtersApplied,
     loading,
     planets,
     textSearch,
   };
   return (
-    <context.Provider value={ values }>
+    <Context.Provider value={ values }>
       {children}
-    </context.Provider>
+    </Context.Provider>
   );
 }
 

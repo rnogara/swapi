@@ -1,12 +1,25 @@
-import React, { useContext, useState } from 'react';
-import context from '../context/swContext';
+import React, { useContext, useEffect, useState } from 'react';
+import Context from '../context/swContext';
+import Filters from './Filters';
 
 function Search() {
-  const { textSearch, filterPlanets } = useContext(context);
+  const { applyFilters, textSearch, filterPlanets, filtersApplied } = useContext(Context);
   const [searchNumber, setSearchNumber] = useState(0);
   const [searchOption, setSearchOption] = useState('population');
   const [searchComparison, setSearchComparison] = useState('maior que');
-  const [filtersApplied, setFiltersApplied] = useState([]);
+  const [options, setOptions] = useState(['population', 'orbital_period', 'diameter',
+    'rotation_period', 'surface_water']);
+
+  useEffect(() => {
+    if (filtersApplied.length > 0) {
+      let mappedOptions = [];
+      filtersApplied.forEach((filter) => {
+        const avaiableOptions = options.filter((option) => option !== filter.option);
+        mappedOptions = [...avaiableOptions];
+      });
+      setOptions(mappedOptions);
+    }
+  }, [filtersApplied]);
 
   function handleFilterBtn() {
     const newFilter = {
@@ -14,22 +27,9 @@ function Search() {
       comparison: searchComparison,
       number: searchNumber,
     };
-    if (filtersApplied.includes(newFilter)) {
-      return;
-    }
-    // const maxFilter = 5;
-    // if (filtersApplied.length === maxFilter) {
-    //   return console.log('você só pode ter 5 filtros');
-    // }
     const arrayFilters = [...filtersApplied, newFilter];
-    setFiltersApplied(arrayFilters);
+    applyFilters(arrayFilters);
     filterPlanets(arrayFilters);
-  }
-
-  function handleDeleteFilterBtn(target) {
-    const index = parseFloat(target.id);
-    const newArray = filtersApplied.filter((filter, i) => i !== index);
-    setFiltersApplied(newArray);
   }
 
   return (
@@ -44,11 +44,9 @@ function Search() {
           data-testid="column-filter"
           onClick={ ({ target }) => setSearchOption(target.value) }
         >
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
+          { options.map((option, i) => (
+            <option key={ i }>{option}</option>
+          ))}
         </select>
         <select
           data-testid="comparison-filter"
@@ -71,22 +69,7 @@ function Search() {
           Filtrar
         </button>
       </div>
-      <div className="applied-filters-wrapper">
-        {filtersApplied.length > 0 && filtersApplied.map((filter, index) => (
-          <div className="applied-filters-box" key={ index }>
-            <p className="applied-filter-text">{filter.option}</p>
-            <p className="applied-filter-text">{filter.comparison}</p>
-            <p className="applied-filter-text">{filter.number}</p>
-            <button
-              id={ index }
-              onClick={ ({ target }) => handleDeleteFilterBtn(target) }
-              className="delete-filter-btn"
-            >
-              ❌
-            </button>
-          </div>
-        ))}
-      </div>
+      <Filters />
     </section>
   );
 }

@@ -1,25 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Context from '../context/swContext';
 import Filters from './Filters';
 
 function Search() {
-  const { applyFilters, textSearch, filterPlanets, filtersApplied } = useContext(Context);
+  const { setFiltersApplied, textSearch, filtersApplied, options } = useContext(Context);
   const [searchNumber, setSearchNumber] = useState(0);
   const [searchOption, setSearchOption] = useState('population');
   const [searchComparison, setSearchComparison] = useState('maior que');
-  const [options, setOptions] = useState(['population', 'orbital_period', 'diameter',
-    'rotation_period', 'surface_water']);
-
-  useEffect(() => {
-    if (filtersApplied.length > 0) {
-      let mappedOptions = [];
-      filtersApplied.forEach((filter) => {
-        const avaiableOptions = options.filter((option) => option !== filter.option);
-        mappedOptions = [...avaiableOptions];
-      });
-      setOptions(mappedOptions);
-    }
-  }, [filterPlanets]);
 
   function handleFilterBtn() {
     const newFilter = {
@@ -28,8 +15,7 @@ function Search() {
       number: searchNumber,
     };
     const arrayFilters = [...filtersApplied, newFilter];
-    applyFilters(arrayFilters);
-    filterPlanets(arrayFilters);
+    setFiltersApplied(arrayFilters);
   }
 
   return (
@@ -67,6 +53,12 @@ function Search() {
           onClick={ handleFilterBtn }
         >
           Filtrar
+        </button>
+        <button
+          data-testid="button-remove-filters"
+          onClick={ () => setFiltersApplied([]) }
+        >
+          Remover todas filtragens
         </button>
       </div>
       <Filters />

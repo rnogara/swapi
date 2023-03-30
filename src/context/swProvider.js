@@ -1,17 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './swContext';
 import useFilterCase from '../hooks/useFilterCase';
 
 function Provider({ children }) {
+  const arrayOptions = ['population', 'orbital_period', 'diameter',
+    'rotation_period', 'surface_water'];
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [planets, setPlanets] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filtersApplied, setFiltersApplied] = useState([]);
+  const [options, setOptions] = useState(arrayOptions);
   const applyFilter = useFilterCase([]);
 
-  const arrayPlanets = filteredPlanets.length === 0 ? planets : filteredPlanets;
+  useEffect(() => {
+    if (filtersApplied.length > 0) {
+      let filtered = [...planets];
+      filtersApplied.forEach((filter) => {
+        const filterInfo = [
+          filter.option,
+          filter.comparison,
+          filter.number,
+        ];
+        const eachFilter = applyFilter.filterCase(...filterInfo, filtered);
+        filtered = eachFilter;
+      });
+      setFilteredPlanets(filtered);
+      let mappedOptions = [...arrayOptions];
+      filtersApplied.forEach((filter) => {
+        const avaiableOptions = arrayOptions.filter((option) => option !== filter.option);
+        mappedOptions = avaiableOptions;
+      });
+      setOptions(mappedOptions);
+    } else {
+      setFilteredPlanets(planets);
+      setOptions(arrayOptions);
+    }
+  }, [filtersApplied]);
 
   async function fetchData(url) {
     try {
@@ -36,34 +62,16 @@ function Provider({ children }) {
     setFilteredPlanets(textFilter);
   }
 
-  function filterPlanets(arrayFilters) {
-    let filtered = [];
-    arrayFilters.forEach((filter) => {
-      const filterInfo = [
-        filter.option,
-        filter.comparison,
-        filter.number,
-      ];
-      const eachFilter = applyFilter.filterCase(...filterInfo, arrayPlanets);
-      filtered = eachFilter;
-    });
-    setFilteredPlanets(filtered);
-  }
-
-  function applyFilters(arrayFilters) {
-    setFiltersApplied(arrayFilters);
-  }
-
-  const values = { applyFilters,
-    error,
+  const values = { error,
     fetchData,
     filteredPlanets,
-    filterPlanets,
     filtersApplied,
     loading,
+    options,
     planets,
-    textSearch,
-  };
+    setFiltersApplied,
+    setFilteredPlanets,
+    textSearch };
   return (
     <Context.Provider value={ values }>
       {children}

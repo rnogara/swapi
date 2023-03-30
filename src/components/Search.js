@@ -19,7 +19,7 @@ function Search() {
       });
       setOptions(mappedOptions);
     }
-  }, [filtersApplied]);
+  }, [filterPlanets]);
 
   function handleFilterBtn() {
     const newFilter = {

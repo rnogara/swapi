@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import Context from '../context/swContext';
 
 function Filters() {
-  const { aplyFilters, filtersApplied, filterPlanets } = useContext(Context);
+  const { applyFilters, filtersApplied, filterPlanets } = useContext(Context);
 
   function handleDeleteFilterBtn(target) {
     const index = parseFloat(target.id);
     const newArray = filtersApplied.filter((filter, i) => i !== index);
-    aplyFilters(newArray);
+    applyFilters(newArray);
     filterPlanets(newArray);
   }
 

@@ -11,6 +11,8 @@ function Provider({ children }) {
   const [filtersApplied, setFiltersApplied] = useState([]);
   const applyFilter = useFilterCase([]);
 
+  const arrayPlanets = filteredPlanets.length === 0 ? planets : filteredPlanets;
+
   async function fetchData(url) {
     try {
       setLoading(true);
@@ -29,8 +31,7 @@ function Provider({ children }) {
   }
 
   function textSearch(text) {
-    const data = filteredPlanets || planets;
-    const textFilter = data
+    const textFilter = planets
       .filter((planet) => planet.name.toLowerCase().includes(text));
     setFilteredPlanets(textFilter);
   }
@@ -43,7 +44,6 @@ function Provider({ children }) {
         filter.comparison,
         filter.number,
       ];
-      const arrayPlanets = filteredPlanets.length === 0 ? planets : filteredPlanets;
       const eachFilter = applyFilter.filterCase(...filterInfo, arrayPlanets);
       filtered = eachFilter;
     });
@@ -54,8 +54,7 @@ function Provider({ children }) {
     setFiltersApplied(arrayFilters);
   }
 
-  const values = {
-    applyFilters,
+  const values = { applyFilters,
     error,
     fetchData,
     filteredPlanets,

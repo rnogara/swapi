@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import Context from '../context/swContext';
 
 function Filters() {
-  const { arrayOptions, setFiltersApplied, filtersApplied,
+  const { setFiltersApplied, filtersApplied,
     options } = useContext(Context);
   const [searchNumber, setSearchNumber] = useState(0);
   const [searchOption, setSearchOption] = useState('population');

@@ -1,9 +1,7 @@
 import React from 'react';
 import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import App from '../App';
-import Provider from '../context/swProvider';
 import mockData from './mock/mockData.json';
-// import testData from '../../cypress/mocks/testData';
 
 describe('Testa o componente App', () => {
   global.fetch = jest.fn(() =>
@@ -12,7 +10,7 @@ describe('Testa o componente App', () => {
     })
   );
   it('testa se o fetch é feito', () => {
-    render(<Provider><App /></Provider>);
+    render(<App />);
     
     const loading = screen.getByText('Carregando...');
     expect(loading).toBeInTheDocument();

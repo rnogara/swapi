@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './swContext';
-import useFilterCase from '../hooks/useFilterCase';
+import filterCase from '../handlers/filterCase';
 
 function Provider({ children }) {
   const arrayOptions = ['population', 'orbital_period', 'diameter',
@@ -12,7 +12,6 @@ function Provider({ children }) {
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filtersApplied, setFiltersApplied] = useState([]);
   const [options, setOptions] = useState(arrayOptions);
-  const applyFilter = useFilterCase([]);
 
   useEffect(() => {
     if (filtersApplied.length > 0) {
@@ -23,13 +22,16 @@ function Provider({ children }) {
           filter.comparison,
           filter.number,
         ];
-        const eachFilter = applyFilter.filterCase(...filterInfo, filtered);
+        const eachFilter = filterCase(...filterInfo, filtered);
         filtered = eachFilter;
       });
       setFilteredPlanets(filtered);
       let mappedOptions = [...arrayOptions];
       filtersApplied.forEach((filter) => {
-        const avaiableOptions = arrayOptions.filter((option) => option !== filter.option);
+        const avaiableOptions = mappedOptions.filter(
+          (option) => option !== filter.option,
+        );
+        console.log(avaiableOptions);
         mappedOptions = avaiableOptions;
       });
       setOptions(mappedOptions);
@@ -62,7 +64,23 @@ function Provider({ children }) {
     setFilteredPlanets(textFilter);
   }
 
-  const values = { error,
+  function sortPlanets(option, sortBy) {
+    setFilteredPlanets([]);
+    let sorted = [];
+    const um = 1;
+    if (sortBy === 'DESC') {
+      sorted = planets.sort((a, b) => (
+        b[option] === 'unknown' ? -um : b[option] - a[option]));
+    } else {
+      sorted = planets.sort((a, b) => (
+        b[option] === 'unknown' ? -um : a[option] - b[option]));
+    }
+    console.log(sorted);
+    setFilteredPlanets(sorted);
+  }
+
+  const values = { arrayOptions,
+    error,
     fetchData,
     filteredPlanets,
     filtersApplied,
@@ -71,6 +89,7 @@ function Provider({ children }) {
     planets,
     setFiltersApplied,
     setFilteredPlanets,
+    sortPlanets,
     textSearch };
   return (
     <Context.Provider value={ values }>

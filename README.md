@@ -49,7 +49,7 @@ npm install
 
 ## Como Rodar
 
-Para iniciar o servidor de desenvolvimento e visualizar o seu portfólio, execute o seguinte comando:
+Para iniciar o aplicativo em seu ambiente de desenvolvimento, execute o seguinte comando:
 
 ```bash
 npm start
